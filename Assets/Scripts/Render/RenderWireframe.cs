@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Scripts.Render
 {
-    // TODO: Doesn't work if parent is rotated or scaled
     [RequireComponent(typeof(Polyhedron))]
     public class RenderWireframe : MonoBehaviour
     {
@@ -29,13 +28,10 @@ namespace Scripts.Render
 
         private void Render()
         {
-            DestroyImmediate(wireframe);
             // Create wireframe gameobject to hold frame info
+            DestroyImmediate(wireframe);
             wireframe = new GameObject("Wireframe");
             wireframe.transform.SetParent(gameObject.transform);
-            wireframe.transform.localPosition = Vector3.zero;
-            wireframe.transform.localEulerAngles = Vector3.zero;
-            wireframe.transform.localScale = Vector3.one;
 
             // Generate sphere at each vertex
             foreach (Vertex vertex in Polyhedron.Vertices)
@@ -52,15 +48,20 @@ namespace Scripts.Render
             {
                 Vertex vtxA = edge.Endpoints[0];
                 Vertex vtxB = edge.Endpoints[1];
-                Vector3 offest = vtxA.Position - vtxB.Position;
+                Vector3 offset = vtxA.Position - vtxB.Position;
 
                 GameObject edgeObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 edgeObj.transform.SetParent(wireframe.transform);
-                edgeObj.transform.localPosition = vtxA.Position - offest / 2;
-                edgeObj.transform.LookAt(wireframe.transform.position + vtxB.Position);
-                edgeObj.transform.Rotate(90, 0, 0);
-                edgeObj.transform.localScale = new Vector3(FrameThickness, offest.magnitude / 2, FrameThickness);
+				edgeObj.transform.localPosition = vtxA.Position - offset / 2;
+                edgeObj.transform.localScale = new Vector3(FrameThickness, offset.magnitude / 2, FrameThickness);
+                edgeObj.transform.localRotation = Quaternion.LookRotation(offset);
+				edgeObj.transform.Rotate(90, 0, 0);
             }
+
+            // Transform wireframe to parent's position
+            wireframe.transform.localPosition = Vector3.zero;
+            wireframe.transform.localEulerAngles = Vector3.zero;
+            wireframe.transform.localScale = Vector3.one;
         }
     }
 }
