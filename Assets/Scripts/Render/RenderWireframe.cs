@@ -13,6 +13,8 @@ namespace Scripts.Render
         public Polyhedron Polyhedron { get; private set; }
 
         private GameObject wireframe;
+        private GameObject[] vertexSpheres;
+        private GameObject[] edgeConnections;
 
         // Run on script load
         public void Awake()
@@ -23,45 +25,65 @@ namespace Scripts.Render
         // Run on object load
         public void Start()
         {
-            Render();
+            GenerateFrameObjects();
+            UpdateFrameObjects();
         }
 
-        private void Render()
+        // Run each frame
+        public void Update()
+        {
+            UpdateFrameObjects();
+        }
+
+        public void GenerateFrameObjects()
         {
             // Create wireframe gameobject to hold frame info
             DestroyImmediate(wireframe);
             wireframe = new GameObject("Wireframe");
             wireframe.transform.SetParent(gameObject.transform);
 
-            // Generate sphere at each vertex
-            foreach (Vertex vertex in Polyhedron.Vertices)
+            // Generate sphere for each vertex
+            vertexSpheres = new GameObject[Polyhedron.Vertices.Length];
+            for (int i = 0; i < vertexSpheres.Length; i++)
             {
-                float sphereRadius = FrameThickness;
-                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                sphere.transform.SetParent(wireframe.transform);
-                sphere.transform.localPosition = vertex.Position;
-                sphere.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
+                vertexSpheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                vertexSpheres[i].transform.SetParent(wireframe.transform);
             }
 
-            // Generate frame connecting vertices with edges
-            foreach (Edge edge in Polyhedron.Edges)
+            // Generate edge connection for each edge
+            edgeConnections = new GameObject[Polyhedron.Edges.Length];
+            for (int j = 0; j < edgeConnections.Length; j++)
             {
-                Vertex vtxA = edge.Endpoints[0];
-                Vertex vtxB = edge.Endpoints[1];
-                Vector3 offset = vtxA.Position - vtxB.Position;
-
-                GameObject edgeObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                edgeObj.transform.SetParent(wireframe.transform);
-				edgeObj.transform.localPosition = vtxA.Position - offset / 2;
-                edgeObj.transform.localScale = new Vector3(FrameThickness, offset.magnitude / 2, FrameThickness);
-                edgeObj.transform.localRotation = Quaternion.LookRotation(offset);
-				edgeObj.transform.Rotate(90, 0, 0);
+                edgeConnections[j] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                edgeConnections[j].transform.SetParent(wireframe.transform);
             }
 
             // Transform wireframe to parent's position
             wireframe.transform.localPosition = Vector3.zero;
             wireframe.transform.localEulerAngles = Vector3.zero;
             wireframe.transform.localScale = Vector3.one;
+        }
+
+        private void UpdateFrameObjects()
+        {
+            for (int i = 0; i < vertexSpheres.Length; i++)
+            {
+                float sphereRadius = FrameThickness;
+                vertexSpheres[i].transform.localPosition = Polyhedron.Vertices[i].Position;
+                vertexSpheres[i].transform.localScale = sphereRadius * Vector3.one;
+            }
+
+            for (int j = 0; j < edgeConnections.Length; j++)
+            {
+                Vertex vtxA = Polyhedron.Edges[j].Endpoints[0];
+                Vertex vtxB = Polyhedron.Edges[j].Endpoints[1];
+                Vector3 offset = vtxA.Position - vtxB.Position;
+                
+                edgeConnections[j].transform.localPosition = vtxA.Position - offset / 2;
+                edgeConnections[j].transform.localScale = new Vector3(FrameThickness, offset.magnitude / 2, FrameThickness);
+                edgeConnections[j].transform.localRotation = Quaternion.LookRotation(offset);
+                edgeConnections[j].transform.Rotate(90, 0, 0);
+            }
         }
     }
 }
