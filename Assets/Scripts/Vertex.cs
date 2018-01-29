@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Scripts
 {
     public class Vertex
     {
-        public Vector3 Position { get; }
+        public Vector3 Position { get; set; }
 
         public Vertex(float x, float y, float z)
         {

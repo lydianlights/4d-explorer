@@ -1,56 +1,63 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Scripts.Render
 {
-    public abstract class Polyhedron : MonoBehaviour
+    // TODO: Doesn't work if parent is rotated or scaled
+    [RequireComponent(typeof(Polyhedron))]
+    public class RenderWireframe : MonoBehaviour
     {
-        public Vertex[] Vertices { get; protected set; }
-        public Edge[] Edges { get; protected set; }
-
-        // Implement generation of Vertices and Edges in derived class
-        protected abstract void GenerateVerticesAndEdges();
-
         // Set by Unity
         public float FrameThickness = 0.05f;
 
-        // Run on script load
-        protected void Awake()
-        {
+        public Polyhedron Polyhedron { get; private set; }
 
+        private GameObject wireframe;
+
+        // Run on script load
+        public void Awake()
+        {
+            Polyhedron = GetComponent<Polyhedron>();
         }
 
         // Run on object load
-        protected void Start()
+        public void Start()
         {
-            GenerateVerticesAndEdges();
-            RenderWireframe();
+            Render();
         }
 
-        protected void RenderWireframe()
+        private void Render()
         {
+            DestroyImmediate(wireframe);
+            // Create wireframe gameobject to hold frame info
+            wireframe = new GameObject("Wireframe");
+            wireframe.transform.SetParent(gameObject.transform);
+            wireframe.transform.localPosition = Vector3.zero;
+            wireframe.transform.localEulerAngles = Vector3.zero;
+            wireframe.transform.localScale = Vector3.one;
+
             // Generate sphere at each vertex
-            foreach (Vertex vertex in Vertices)
+            foreach (Vertex vertex in Polyhedron.Vertices)
             {
                 float sphereRadius = FrameThickness;
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                sphere.transform.SetParent(gameObject.transform);
+                sphere.transform.SetParent(wireframe.transform);
                 sphere.transform.localPosition = vertex.Position;
                 sphere.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
             }
 
             // Generate frame connecting vertices with edges
-            foreach (Edge edge in Edges)
+            foreach (Edge edge in Polyhedron.Edges)
             {
                 Vertex vtxA = edge.Endpoints[0];
                 Vertex vtxB = edge.Endpoints[1];
                 Vector3 offest = vtxA.Position - vtxB.Position;
 
                 GameObject edgeObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                edgeObj.transform.SetParent(gameObject.transform);
+                edgeObj.transform.SetParent(wireframe.transform);
                 edgeObj.transform.localPosition = vtxA.Position - offest / 2;
-                edgeObj.transform.LookAt(gameObject.transform.position + vtxB.Position);
+                edgeObj.transform.LookAt(wireframe.transform.position + vtxB.Position);
                 edgeObj.transform.Rotate(90, 0, 0);
                 edgeObj.transform.localScale = new Vector3(FrameThickness, offest.magnitude / 2, FrameThickness);
             }
