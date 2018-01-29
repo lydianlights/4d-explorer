@@ -11,11 +11,11 @@ namespace Scripts.Shapes
 
             Vertices = new Vertex[]
             {
-                new Vertex(0, 0, 0), new Vertex(1, 0, 0),
-                new Vertex(0, 0, 1), new Vertex(1, 0, 1),
+                new Vertex(this, 0, 0, 0), new Vertex(this, 1, 0, 0),
+                new Vertex(this, 0, 0, 1), new Vertex(this, 1, 0, 1),
 
-                new Vertex(0, 1, 0), new Vertex(1, 1, 0),
-                new Vertex(0, 1, 1), new Vertex(1, 1, 1),
+                new Vertex(this, 0, 1, 0), new Vertex(this, 1, 1, 0),
+                new Vertex(this, 0, 1, 1), new Vertex(this, 1, 1, 1),
             };
 
             Edges = new Edge[]
@@ -39,7 +39,7 @@ namespace Scripts.Shapes
             Vector3 offset = new Vector3(0.5f, 0.5f, 0.5f);
             foreach (Vertex vertex in Vertices)
             {
-                vertex.Position -= offset;
+                vertex.LocalPosition -= offset;
             }
         }
     }

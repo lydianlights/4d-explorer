@@ -14,13 +14,13 @@ namespace Scripts.Shapes
             float yOffset = Length / 2;
             Vertices = new Vertex[]
             {
-                new Vertex(-MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
-                new Vertex(MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
-                new Vertex(0, -yOffset, 2f/3f),
+                new Vertex(this, -MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
+                new Vertex(this, MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
+                new Vertex(this, 0, -yOffset, 2f/3f),
 
-                new Vertex(-MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
-                new Vertex(MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
-                new Vertex(0, yOffset, 2f/3f),
+                new Vertex(this, -MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
+                new Vertex(this, MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
+                new Vertex(this, 0, yOffset, 2f/3f),
             };
 
             Edges = new Edge[]

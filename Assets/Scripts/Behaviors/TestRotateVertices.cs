@@ -28,11 +28,11 @@ namespace Scripts.Behaviors
 
             foreach (Vertex vertex in Polyhedron.Vertices)
             {
-                var v = vertex.Position;
+                var v = vertex.LocalPosition;
                 var x = v.x * cosY + v.z * sinY;
                 var y = v.y;
                 var z = -v.x * sinY + v.z * cosY;
-                vertex.Position = new Vector3(x, y, z);
+                vertex.LocalPosition = new Vector3(x, y, z);
             }
         }
     }

@@ -69,7 +69,7 @@ namespace Scripts.Render
             for (int i = 0; i < vertexSpheres.Length; i++)
             {
                 float sphereRadius = FrameThickness;
-                vertexSpheres[i].transform.localPosition = Polyhedron.Vertices[i].Position;
+                vertexSpheres[i].transform.localPosition = Polyhedron.Vertices[i].LocalPosition;
                 vertexSpheres[i].transform.localScale = sphereRadius * Vector3.one;
             }
 
@@ -77,9 +77,9 @@ namespace Scripts.Render
             {
                 Vertex vtxA = Polyhedron.Edges[j].Endpoints[0];
                 Vertex vtxB = Polyhedron.Edges[j].Endpoints[1];
-                Vector3 offset = vtxA.Position - vtxB.Position;
+                Vector3 offset = vtxA.LocalPosition - vtxB.LocalPosition;
                 
-                edgeConnections[j].transform.localPosition = vtxA.Position - offset / 2;
+                edgeConnections[j].transform.localPosition = vtxA.LocalPosition - offset / 2;
                 edgeConnections[j].transform.localScale = new Vector3(FrameThickness, offset.magnitude / 2, FrameThickness);
                 edgeConnections[j].transform.localRotation = Quaternion.LookRotation(offset);
                 edgeConnections[j].transform.Rotate(90, 0, 0);

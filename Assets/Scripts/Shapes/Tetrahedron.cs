@@ -11,10 +11,10 @@ namespace Scripts.Shapes
         {
             Vertices = new Vertex[]
             {
-                new Vertex(Mathf.Sqrt(8f/9f), -1f/3f, 0f),
-                new Vertex(-Mathf.Sqrt(2f/9f), -1f/3f, Mathf.Sqrt(2f/3f)),
-                new Vertex(-Mathf.Sqrt(2f/9f), -1f/3f, -Mathf.Sqrt(2f/3f)),
-                new Vertex(0f, 1f, 0f)
+                new Vertex(this, Mathf.Sqrt(8f/9f), -1f/3f, 0f),
+                new Vertex(this, -Mathf.Sqrt(2f/9f), -1f/3f, Mathf.Sqrt(2f/3f)),
+                new Vertex(this, -Mathf.Sqrt(2f/9f), -1f/3f, -Mathf.Sqrt(2f/3f)),
+                new Vertex(this, 0f, 1f, 0f),
             };
 
             Edges = new Edge[]
