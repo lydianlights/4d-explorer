@@ -6,7 +6,7 @@ namespace Scripts
 {
     public class Edge
     {
-        public Vertex[] Endpoints { get; }
+        public Vertex[] Endpoints { get; private set; }
 
         public Edge(Vertex a, Vertex b)
         {
