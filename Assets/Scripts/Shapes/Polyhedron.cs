@@ -20,6 +20,16 @@ namespace Scripts.Shapes
             GenerateVerticesAndEdges();
         }
 
+        public Vertex[] SetVerticiesFromVectors(Vector3[] vectors)
+        {
+            Vertices = new Vertex[vectors.Length];
+            for (int i = 0; i < vectors.Length; i++)
+            {
+                Vertices[i] = new Vertex(this, i, vectors[i]);
+            }
+            return Vertices;
+        }
+
         public static GeneratedPolyhedron GenerateFor(GameObject parent, GenerationFunction generator)
         {
             parent.SetActive(false);

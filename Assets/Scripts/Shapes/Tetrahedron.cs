@@ -9,13 +9,15 @@ namespace Scripts.Shapes
     {
         protected override void GenerateVerticesAndEdges()
         {
-            Vertices = new Vertex[]
+            var vertexPositions = new Vector3[]
             {
-                new Vertex(this, Mathf.Sqrt(8f/9f), -1f/3f, 0f),
-                new Vertex(this, -Mathf.Sqrt(2f/9f), -1f/3f, Mathf.Sqrt(2f/3f)),
-                new Vertex(this, -Mathf.Sqrt(2f/9f), -1f/3f, -Mathf.Sqrt(2f/3f)),
-                new Vertex(this, 0f, 1f, 0f),
+                new Vector3(Mathf.Sqrt(8f/9f), -1f/3f, 0f),
+                new Vector3(-Mathf.Sqrt(2f/9f), -1f/3f, Mathf.Sqrt(2f/3f)),
+                new Vector3(-Mathf.Sqrt(2f/9f), -1f/3f, -Mathf.Sqrt(2f/3f)),
+                new Vector3(0f, 1f, 0f),
             };
+
+            SetVerticiesFromVectors(vertexPositions);
 
             Edges = new Edge[]
             {

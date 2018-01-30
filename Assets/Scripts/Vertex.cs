@@ -8,6 +8,7 @@ namespace Scripts
     public class Vertex
     {
         public Vector3 LocalPosition { get; set; }
+        // TODO: Setter for global position
         public Vector3 GlobalPosition
         {
             get
@@ -18,18 +19,17 @@ namespace Scripts
                 return result;
             }
         }
+        public int Index { get; set; }
         public Polyhedron Parent { get; private set; }
 
-        public Vertex(Polyhedron parent, float x, float y, float z)
+        public Vertex(Polyhedron parent, int index, Vector3 position)
         {
             Parent = parent;
-            LocalPosition = new Vector3(x, y, z);
-        }
-
-        public Vertex(Polyhedron parent, Vector3 position)
-        {
-            Parent = parent;
+            Index = index;
             LocalPosition = position;
         }
+
+        public Vertex(Polyhedron parent, int index, float x, float y, float z)
+            : this(parent, index, new Vector3(x, y, z)) { }
     }
 }

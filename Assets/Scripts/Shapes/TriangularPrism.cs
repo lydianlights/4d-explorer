@@ -12,16 +12,18 @@ namespace Scripts.Shapes
         protected override void GenerateVerticesAndEdges()
         {
             float yOffset = Length / 2;
-            Vertices = new Vertex[]
+            var vertexPositions = new Vector3[]
             {
-                new Vertex(this, -MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
-                new Vertex(this, MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
-                new Vertex(this, 0, -yOffset, 2f/3f),
+                new Vector3(-MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
+                new Vector3(MathHelpers.Sqrt3Inv, -yOffset, -1f/3f),
+                new Vector3(0, -yOffset, 2f/3f),
 
-                new Vertex(this, -MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
-                new Vertex(this, MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
-                new Vertex(this, 0, yOffset, 2f/3f),
+                new Vector3(-MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
+                new Vector3(MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
+                new Vector3(0, yOffset, 2f/3f),
             };
+
+            SetVerticiesFromVectors(vertexPositions);
 
             Edges = new Edge[]
             {

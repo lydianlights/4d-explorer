@@ -8,15 +8,16 @@ namespace Scripts.Shapes
     {
         protected override void GenerateVerticesAndEdges()
         {
-
-            Vertices = new Vertex[]
+            var vertexPositions = new Vector3[]
             {
-                new Vertex(this, 0, 0, 0), new Vertex(this, 1, 0, 0),
-                new Vertex(this, 0, 0, 1), new Vertex(this, 1, 0, 1),
+                new Vector3(0, 0, 0), new Vector3(1, 0, 0),
+                new Vector3(0, 0, 1), new Vector3(1, 0, 1),
 
-                new Vertex(this, 0, 1, 0), new Vertex(this, 1, 1, 0),
-                new Vertex(this, 0, 1, 1), new Vertex(this, 1, 1, 1),
+                new Vector3(0, 1, 0), new Vector3(1, 1, 0),
+                new Vector3(0, 1, 1), new Vector3(1, 1, 1),
             };
+
+            SetVerticiesFromVectors(vertexPositions);
 
             Edges = new Edge[]
             {

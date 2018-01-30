@@ -44,7 +44,7 @@ namespace Scripts.Render
                 for (int i = 0; i < vertices.Length; i++)
                 {
                     Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
-                    vertices[i] = new Vertex(self, result);
+                    vertices[i] = new Vertex(self, i, result);
                 }
             });
 
