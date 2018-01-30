@@ -20,12 +20,13 @@ namespace Scripts.Shapes
             GenerateVerticesAndEdges();
         }
 
-        public static void GenerateFor(GameObject parent, GenerationFunction generator)
+        public static GeneratedPolyhedron GenerateFor(GameObject parent, GenerationFunction generator)
         {
             parent.SetActive(false);
             var polyhedron = parent.AddComponent<GeneratedPolyhedron>();
             polyhedron.Generator = generator;
             parent.SetActive(true);
+            return polyhedron;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Scripts.Render
     {
         public Polyhedron Polyhedron { get; private set; }
 
+        private GeneratedPolyhedron projectionPolyhedron;
         private GameObject projection;
 
         // Run on script load
@@ -18,9 +19,16 @@ namespace Scripts.Render
             Polyhedron = GetComponent<Polyhedron>();
         }
 
+        // Run on object load
         public void Start()
         {
             GenerateProjectionPolyhedron();
+        }
+
+        // Run each frame
+        public void Update()
+        {
+            UpdateProjectionPolyhedron();
         }
 
         private void GenerateProjectionPolyhedron()
@@ -29,38 +37,32 @@ namespace Scripts.Render
             projection = new GameObject("Stereographic Projection");
             projection.transform.SetParent(gameObject.transform);
 
-            // TODO: Generate projection instead of test
-            Polyhedron.GenerateFor(projection, (Polyhedron self, ref Vertex[] vertices, ref Edge[] edges) =>
+            // TODO: Add edge generation
+            projectionPolyhedron = Polyhedron.GenerateFor(projection, (Polyhedron self, ref Vertex[] vertices, ref Edge[] edges) =>
             {
                 vertices = new Vertex[Polyhedron.Vertices.Length];
                 for (int i = 0; i < vertices.Length; i++)
                 {
-                    float x = Polyhedron.Vertices[i].GlobalPosition.x;
-                    float y = 0;
-                    float z = Polyhedron.Vertices[i].GlobalPosition.z;
-                    vertices[i] = new Vertex(self, new Vector3(x, y, z));
+                    Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
+                    vertices[i] = new Vertex(self, result);
                 }
-
-                //vertices = new Vertex[]
-                //{
-                //    new Vertex(self, Mathf.Sqrt(8f/9f), -1f/3f, 0f),
-                //    new Vertex(self, -Mathf.Sqrt(2f/9f), -1f/3f, Mathf.Sqrt(2f/3f)),
-                //    new Vertex(self, -Mathf.Sqrt(2f/9f), -1f/3f, -Mathf.Sqrt(2f/3f)),
-                //    new Vertex(self, 0f, 1f, 0f),
-                //};
-
-                //edges = new Edge[]
-                //{
-                //    new Edge(vertices[0], vertices[1]),
-                //    new Edge(vertices[0], vertices[2]),
-                //    new Edge(vertices[0], vertices[3]),
-                //    new Edge(vertices[1], vertices[2]),
-                //    new Edge(vertices[1], vertices[3]),
-                //    new Edge(vertices[2], vertices[3]),
-                //};
             });
 
             projection.AddComponent<RenderWireframe>();
+        }
+
+        private void UpdateProjectionPolyhedron()
+        {
+            for (int i = 0; i < projectionPolyhedron.Vertices.Length; i++)
+            {
+                Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
+                projectionPolyhedron.Vertices[i].LocalPosition = result;
+            }
+        }
+
+        public static Vector3 Project(Vector3 target)
+        {
+            return new Vector3(target.x, 0, target.z);
         }
     }
 }
