@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Shapes
 {
     public abstract class Polyhedron : MonoBehaviour
     {

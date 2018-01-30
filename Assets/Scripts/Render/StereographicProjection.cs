@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Shapes;
 
 namespace Scripts.Render
 {
@@ -13,6 +14,16 @@ namespace Scripts.Render
         public void Awake()
         {
             Polyhedron = GetComponent<Polyhedron>();
+        }
+
+        public void Start()
+        {
+            GenerateProjectionPolyhedron();
+        }
+
+        private void GenerateProjectionPolyhedron()
+        {
+
         }
     }
 }
