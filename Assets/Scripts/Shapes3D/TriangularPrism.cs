@@ -9,7 +9,7 @@ namespace Scripts.Shapes3D
     {
         public float Length = 1;
 
-        protected override void GenerateVerticesAndEdges()
+        protected override Vector3[] DefineVertexPositions()
         {
             float yOffset = Length / 2;
             var vertexPositions = new Vector3[]
@@ -22,10 +22,12 @@ namespace Scripts.Shapes3D
                 new Vector3(MathHelpers.Sqrt3Inv, yOffset, -1f/3f),
                 new Vector3(0, yOffset, 2f/3f),
             };
+            return vertexPositions;
+        }
 
-            SetVerticiesFromVectors(vertexPositions);
-
-            Edges = new Edge3D[]
+        protected override Edge3D[] DefineEdges()
+        {
+            var edges = new Edge3D[]
             {
                 new Edge3D(Vertices[0], Vertices[1]),
                 new Edge3D(Vertices[1], Vertices[2]),
@@ -39,6 +41,7 @@ namespace Scripts.Shapes3D
                 new Edge3D(Vertices[4], Vertices[5]),
                 new Edge3D(Vertices[5], Vertices[3]),
             };
+            return edges;
         }
     }
 }

@@ -6,12 +6,21 @@ namespace Scripts.Shapes3D
 {
     public class GeneratedPolyhedron : Polyhedron
     {
-        public delegate void GenerationFunction(Polyhedron self, ref Vertex3D[] vertices, ref Edge3D[] edges);
-        public GenerationFunction Generator;
+        public delegate Vector3[] VertexGenerator(GeneratedPolyhedron self);
+        public delegate Edge3D[] EdgeGenerator(GeneratedPolyhedron self);
 
-        protected override void GenerateVerticesAndEdges()
+        public VertexGenerator VertexGeneratorFunction = null;
+        public EdgeGenerator EdgeGeneratorFunction = null;
+
+        // TODO: Do some error checking in case generators are never definied
+        protected override Vector3[] DefineVertexPositions()
         {
-            Generator(this, ref Vertices, ref Edges);
+            return VertexGeneratorFunction(this);
+        }
+
+        protected override Edge3D[] DefineEdges()
+        {
+            return EdgeGeneratorFunction(this);
         }
     }
 }

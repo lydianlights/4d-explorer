@@ -4,22 +4,24 @@ using UnityEngine;
 
 namespace Scripts.Shapes3D
 {
-    // TODO: Refactor Polyhedron generation to be a little less obtuse
     public abstract class Polyhedron : MonoBehaviour
     {
-        public Vertex3D[] Vertices = new Vertex3D[] { };
-        public Edge3D[] Edges = new Edge3D[] { };
+        public Vertex3D[] Vertices;
+        public Edge3D[] Edges;
 
         // Implement generation of Vertices and Edges in derived class
-        protected abstract void GenerateVerticesAndEdges();
+        protected abstract Vector3[] DefineVertexPositions();
+        protected abstract Edge3D[] DefineEdges();
 
         // Run on script load
         public void Awake()
         {
-            GenerateVerticesAndEdges();
+            Vector3[] vertexPositions = DefineVertexPositions();
+            SetVerticiesFromVectors(vertexPositions);
+            Edges = DefineEdges();
         }
 
-        public Vertex3D[] SetVerticiesFromVectors(Vector3[] vectors)
+        private Vertex3D[] SetVerticiesFromVectors(Vector3[] vectors)
         {
             Vertices = new Vertex3D[vectors.Length];
             for (int i = 0; i < vectors.Length; i++)
@@ -29,11 +31,19 @@ namespace Scripts.Shapes3D
             return Vertices;
         }
 
-        public static GeneratedPolyhedron GenerateFor(GameObject parent, GeneratedPolyhedron.GenerationFunction generator)
+        // Creates a new GeneratedPolyhedron component attached to given object
+        // Necessary because Unity's Monobehaviours can't really have proper constructors
+        public static GeneratedPolyhedron GenerateFor(
+            GameObject parent,
+            GeneratedPolyhedron.VertexGenerator vertexGenerator,
+            GeneratedPolyhedron.EdgeGenerator edgeGenerator
+        )
         {
+            // Pause parent to make sure Awake and Start run *after* initializing generators
             parent.SetActive(false);
             var polyhedron = parent.AddComponent<GeneratedPolyhedron>();
-            polyhedron.Generator = generator;
+            polyhedron.VertexGeneratorFunction = vertexGenerator;
+            polyhedron.EdgeGeneratorFunction = edgeGenerator;
             parent.SetActive(true);
             return polyhedron;
         }

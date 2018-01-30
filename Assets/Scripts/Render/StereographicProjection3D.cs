@@ -38,22 +38,27 @@ namespace Scripts.Render
             projection.transform.SetParent(gameObject.transform);
 
             // TODO: Add edge generation
-            projectionPolyhedron = Polyhedron.GenerateFor(projection, (Polyhedron self, ref Vertex3D[] vertices, ref Edge3D[] edges) =>
-            {
-                vertices = new Vertex3D[Polyhedron.Vertices.Length];
-                for (int i = 0; i < vertices.Length; i++)
+            projectionPolyhedron = Polyhedron.GenerateFor(
+                projection,
+                (self) =>
                 {
-                    Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
-                    vertices[i] = new Vertex3D(self, i, result);
-                }
-
-                edges = new Edge3D[Polyhedron.Edges.Length];
-                for (int i = 0; i < edges.Length; i++)
+                    var vertexPositions = new Vector3[Polyhedron.Vertices.Length];
+                    for (int i = 0; i < vertexPositions.Length; i++)
+                    {
+                        vertexPositions[i] = Project(Polyhedron.Vertices[i].GlobalPosition);
+                    }
+                    return vertexPositions;
+                },
+                (self) =>
                 {
-                    int indexA = Polyhedron.Edges[i].Endpoints[0].Index;
-                    int indexB = Polyhedron.Edges[i].Endpoints[1].Index;
-                    edges[i] = new Edge3D(vertices[indexA], vertices[indexB]);
-                }
+                    var edges = new Edge3D[Polyhedron.Edges.Length];
+                    for (int i = 0; i < edges.Length; i++)
+                    {
+                        int indexA = Polyhedron.Edges[i].Endpoints[0].Index;
+                        int indexB = Polyhedron.Edges[i].Endpoints[1].Index;
+                        edges[i] = new Edge3D(self.Vertices[indexA], self.Vertices[indexB]);
+                    }
+                    return edges;
             });
 
             projection.AddComponent<RenderWireframe>();

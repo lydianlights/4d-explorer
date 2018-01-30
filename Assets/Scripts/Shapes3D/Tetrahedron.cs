@@ -7,7 +7,7 @@ namespace Scripts.Shapes3D
 {
     class Tetrahedron : Polyhedron
     {
-        protected override void GenerateVerticesAndEdges()
+        protected override Vector3[] DefineVertexPositions()
         {
             var vertexPositions = new Vector3[]
             {
@@ -16,10 +16,12 @@ namespace Scripts.Shapes3D
                 new Vector3(-Mathf.Sqrt(2f/9f), -1f/3f, -Mathf.Sqrt(2f/3f)),
                 new Vector3(0f, 1f, 0f),
             };
+            return vertexPositions;
+        }
 
-            SetVerticiesFromVectors(vertexPositions);
-
-            Edges = new Edge3D[]
+        protected override Edge3D[] DefineEdges()
+        {
+            var edges = new Edge3D[]
             {
                 new Edge3D(Vertices[0], Vertices[1]),
                 new Edge3D(Vertices[0], Vertices[2]),
@@ -28,6 +30,7 @@ namespace Scripts.Shapes3D
                 new Edge3D(Vertices[1], Vertices[3]),
                 new Edge3D(Vertices[2], Vertices[3]),
             };
+            return edges;
         }
     }
 }
