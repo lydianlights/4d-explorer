@@ -6,7 +6,7 @@ namespace Scripts.Shapes4D
 {
     public class Vertex4D
     {
-        public Vector4 LocalPostion { get; set; }
+        public Vector4 LocalPosition { get; set; }
 
         // TODO: Global Position
         public int Index { get; set; }
@@ -16,7 +16,7 @@ namespace Scripts.Shapes4D
         {
             Parent = parent;
             Index = index;
-            LocalPostion = position;
+            LocalPosition = position;
         }
 
         public Vertex4D(Polytope4D parent, int index, float x, float y, float z, float w)
