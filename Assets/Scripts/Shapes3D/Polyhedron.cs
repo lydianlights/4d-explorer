@@ -13,8 +13,6 @@ namespace Scripts.Shapes3D
         // Implement generation of Vertices and Edges in derived class
         protected abstract void GenerateVerticesAndEdges();
 
-        public delegate void GenerationFunction(Polyhedron self, ref Vertex3D[] vertices, ref Edge3D[] edges);
-
         // Run on script load
         public void Awake()
         {
@@ -31,7 +29,7 @@ namespace Scripts.Shapes3D
             return Vertices;
         }
 
-        public static GeneratedPolyhedron GenerateFor(GameObject parent, GenerationFunction generator)
+        public static GeneratedPolyhedron GenerateFor(GameObject parent, GeneratedPolyhedron.GenerationFunction generator)
         {
             parent.SetActive(false);
             var polyhedron = parent.AddComponent<GeneratedPolyhedron>();
