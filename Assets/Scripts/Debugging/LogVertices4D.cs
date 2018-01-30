@@ -10,7 +10,7 @@ namespace Scripts.Debugging
     {
         public Polytope4D Polytope { get; private set; }
 
-        private float lastLogTime;
+        private float? lastLogTime = null;
         private float secondsPerLog = 2.0f;
 
         // Run on script load
@@ -19,14 +19,9 @@ namespace Scripts.Debugging
             Polytope = GetComponent<Polytope4D>();
         }
 
-        public void Start()
-        {
-            lastLogTime = Time.time;
-        }
-
         public void Update()
         {
-            if (Time.time - lastLogTime > secondsPerLog)
+            if (Time.time - lastLogTime > secondsPerLog || lastLogTime == null)
             {
                 string message = "--- Vertices ---\n\n";
 
