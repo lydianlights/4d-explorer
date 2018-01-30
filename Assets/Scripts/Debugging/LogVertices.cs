@@ -10,7 +10,7 @@ namespace Scripts.Debugging
         public Polyhedron Polyhedron { get; private set; }
 
         private float lastLogTime;
-        private float secondsPerLog = 1.0f;
+        private float secondsPerLog = 2.0f;
 
         // Run on script load
         public void Awake()
