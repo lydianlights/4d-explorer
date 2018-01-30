@@ -46,6 +46,14 @@ namespace Scripts.Render
                     Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
                     vertices[i] = new Vertex(self, i, result);
                 }
+
+                edges = new Edge[Polyhedron.Edges.Length];
+                for (int i = 0; i < edges.Length; i++)
+                {
+                    int indexA = Polyhedron.Edges[i].Endpoints[0].Index;
+                    int indexB = Polyhedron.Edges[i].Endpoints[1].Index;
+                    edges[i] = new Edge(vertices[indexA], vertices[indexB]);
+                }
             });
 
             projection.AddComponent<RenderWireframe>();
