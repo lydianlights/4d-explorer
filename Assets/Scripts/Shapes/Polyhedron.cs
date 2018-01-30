@@ -6,8 +6,8 @@ namespace Scripts.Shapes
 {
     public abstract class Polyhedron : MonoBehaviour
     {
-        public Vertex[] Vertices;
-        public Edge[] Edges;
+        public Vertex[] Vertices = new Vertex[] { };
+        public Edge[] Edges = new Edge[] { };
 
         // Implement generation of Vertices and Edges in derived class
         protected abstract void GenerateVerticesAndEdges();
