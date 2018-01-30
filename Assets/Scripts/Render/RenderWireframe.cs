@@ -33,7 +33,7 @@ namespace Scripts.Render
         // Run each frame
         public void Update()
         {
-            UpdateFrameObjects();
+            //UpdateFrameObjects();
         }
 
         public void GenerateFrameObjects()

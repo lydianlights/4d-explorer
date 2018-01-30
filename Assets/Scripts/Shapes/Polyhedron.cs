@@ -6,13 +6,13 @@ namespace Scripts.Shapes
 {
     public abstract class Polyhedron : MonoBehaviour
     {
-        public Vertex[] Vertices { get; protected set; }
-        public Edge[] Edges { get; protected set; }
+        public Vertex[] Vertices;
+        public Edge[] Edges;
 
         // Implement generation of Vertices and Edges in derived class
         protected abstract void GenerateVerticesAndEdges();
 
-        public delegate void GenerationFunction(Vertex[] vertices, Edge[] edges);
+        public delegate void GenerationFunction(Polyhedron self, ref Vertex[] vertices, ref Edge[] edges);
 
         // Run on script load
         public void Awake()

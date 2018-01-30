@@ -10,7 +10,7 @@ namespace Scripts.Shapes
         
         protected override void GenerateVerticesAndEdges()
         {
-            Generator(Vertices, Edges);
+            Generator(this, ref Vertices, ref Edges);
         }
     }
 }

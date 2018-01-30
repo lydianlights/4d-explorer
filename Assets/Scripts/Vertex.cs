@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes
+using Scripts.Shapes;
 
 namespace Scripts
 {
