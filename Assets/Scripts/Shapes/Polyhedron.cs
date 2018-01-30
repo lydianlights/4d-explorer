@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Shapes
 {
+    // TODO: Refactor Polyhedron generation to be a little less obtuse
     public abstract class Polyhedron : MonoBehaviour
     {
         public Vertex[] Vertices = new Vertex[] { };
