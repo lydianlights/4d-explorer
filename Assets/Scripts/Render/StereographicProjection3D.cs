@@ -6,7 +6,7 @@ using Scripts.Shapes3D;
 namespace Scripts.Render
 {
     [RequireComponent(typeof(Polyhedron))]
-    public class StereographicProjection : MonoBehaviour
+    public class StereographicProjection3D : MonoBehaviour
     {
         public Polyhedron Polyhedron { get; private set; }
 
