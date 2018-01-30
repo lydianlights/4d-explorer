@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Helpers;
 
-namespace Scripts.Shapes
+namespace Scripts.Shapes3D
 {
     class Tetrahedron : Polyhedron
     {
@@ -19,14 +19,14 @@ namespace Scripts.Shapes
 
             SetVerticiesFromVectors(vertexPositions);
 
-            Edges = new Edge[]
+            Edges = new Edge3D[]
             {
-                new Edge(Vertices[0], Vertices[1]),
-                new Edge(Vertices[0], Vertices[2]),
-                new Edge(Vertices[0], Vertices[3]),
-                new Edge(Vertices[1], Vertices[2]),
-                new Edge(Vertices[1], Vertices[3]),
-                new Edge(Vertices[2], Vertices[3]),
+                new Edge3D(Vertices[0], Vertices[1]),
+                new Edge3D(Vertices[0], Vertices[2]),
+                new Edge3D(Vertices[0], Vertices[3]),
+                new Edge3D(Vertices[1], Vertices[2]),
+                new Edge3D(Vertices[1], Vertices[3]),
+                new Edge3D(Vertices[2], Vertices[3]),
             };
         }
     }

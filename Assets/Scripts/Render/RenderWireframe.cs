@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes;
+using Scripts.Shapes3D;
 
 namespace Scripts.Render
 {
@@ -76,8 +76,8 @@ namespace Scripts.Render
 
             for (int j = 0; j < edgeConnections.Length; j++)
             {
-                Vertex vtxA = Polyhedron.Edges[j].Endpoints[0];
-                Vertex vtxB = Polyhedron.Edges[j].Endpoints[1];
+                Vertex3D vtxA = Polyhedron.Edges[j].Endpoints[0];
+                Vertex3D vtxB = Polyhedron.Edges[j].Endpoints[1];
                 Vector3 offset = vtxA.LocalPosition - vtxB.LocalPosition;
                 
                 edgeConnections[j].transform.localPosition = vtxA.LocalPosition - offset / 2;

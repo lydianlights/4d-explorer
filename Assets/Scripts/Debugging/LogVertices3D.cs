@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes;
+using Scripts.Shapes3D;
 
 namespace Scripts.Debugging
 {
     [RequireComponent(typeof(Polyhedron))]
-    public class LogVertices : MonoBehaviour
+    public class LogVertices3D : MonoBehaviour
     {
         public Polyhedron Polyhedron { get; private set; }
 

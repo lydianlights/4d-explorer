@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Helpers;
 
-namespace Scripts.Shapes
+namespace Scripts.Shapes3D
 {
     public class TriangularPrism : Polyhedron
     {
@@ -25,19 +25,19 @@ namespace Scripts.Shapes
 
             SetVerticiesFromVectors(vertexPositions);
 
-            Edges = new Edge[]
+            Edges = new Edge3D[]
             {
-                new Edge(Vertices[0], Vertices[1]),
-                new Edge(Vertices[1], Vertices[2]),
-                new Edge(Vertices[2], Vertices[0]),
+                new Edge3D(Vertices[0], Vertices[1]),
+                new Edge3D(Vertices[1], Vertices[2]),
+                new Edge3D(Vertices[2], Vertices[0]),
 
-                new Edge(Vertices[0], Vertices[3]),
-                new Edge(Vertices[1], Vertices[4]),
-                new Edge(Vertices[2], Vertices[5]),
+                new Edge3D(Vertices[0], Vertices[3]),
+                new Edge3D(Vertices[1], Vertices[4]),
+                new Edge3D(Vertices[2], Vertices[5]),
 
-                new Edge(Vertices[3], Vertices[4]),
-                new Edge(Vertices[4], Vertices[5]),
-                new Edge(Vertices[5], Vertices[3]),
+                new Edge3D(Vertices[3], Vertices[4]),
+                new Edge3D(Vertices[4], Vertices[5]),
+                new Edge3D(Vertices[5], Vertices[3]),
             };
         }
     }

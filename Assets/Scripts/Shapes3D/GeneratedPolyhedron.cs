@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Shapes
+namespace Scripts.Shapes3D
 {
     public class GeneratedPolyhedron : Polyhedron
     {

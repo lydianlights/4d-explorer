@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes;
+using Scripts.Shapes3D;
 
 namespace Scripts.Behaviors
 {
     [RequireComponent(typeof(Polyhedron))]
-    public class TestRotateVertices : MonoBehaviour
+    public class TestRotatePolyhedron : MonoBehaviour
     {
         // Set by Unity
         public float XSpeed = 0;
@@ -27,7 +27,7 @@ namespace Scripts.Behaviors
             var sinY = Mathf.Sin(Mathf.Deg2Rad * YSpeed * Time.fixedDeltaTime);
             var cosY = Mathf.Cos(Mathf.Deg2Rad * YSpeed * Time.fixedDeltaTime);
 
-            foreach (Vertex vertex in Polyhedron.Vertices)
+            foreach (Vertex3D vertex in Polyhedron.Vertices)
             {
                 var v = vertex.LocalPosition;
                 var x = v.x * cosY + v.z * sinY;

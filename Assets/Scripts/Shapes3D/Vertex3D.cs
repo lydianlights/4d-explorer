@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes;
 
-namespace Scripts
+namespace Scripts.Shapes3D
 {
-    public class Vertex
+    public class Vertex3D
     {
         public Vector3 LocalPosition { get; set; }
         // TODO: Setter for global position
@@ -22,14 +21,14 @@ namespace Scripts
         public int Index { get; set; }
         public Polyhedron Parent { get; private set; }
 
-        public Vertex(Polyhedron parent, int index, Vector3 position)
+        public Vertex3D(Polyhedron parent, int index, Vector3 position)
         {
             Parent = parent;
             Index = index;
             LocalPosition = position;
         }
 
-        public Vertex(Polyhedron parent, int index, float x, float y, float z)
+        public Vertex3D(Polyhedron parent, int index, float x, float y, float z)
             : this(parent, index, new Vector3(x, y, z)) { }
     }
 }

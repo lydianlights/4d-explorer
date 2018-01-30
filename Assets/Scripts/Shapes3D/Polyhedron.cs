@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Shapes
+namespace Scripts.Shapes3D
 {
     // TODO: Refactor Polyhedron generation to be a little less obtuse
     public abstract class Polyhedron : MonoBehaviour
     {
-        public Vertex[] Vertices = new Vertex[] { };
-        public Edge[] Edges = new Edge[] { };
+        public Vertex3D[] Vertices = new Vertex3D[] { };
+        public Edge3D[] Edges = new Edge3D[] { };
 
         // Implement generation of Vertices and Edges in derived class
         protected abstract void GenerateVerticesAndEdges();
 
-        public delegate void GenerationFunction(Polyhedron self, ref Vertex[] vertices, ref Edge[] edges);
+        public delegate void GenerationFunction(Polyhedron self, ref Vertex3D[] vertices, ref Edge3D[] edges);
 
         // Run on script load
         public void Awake()
@@ -21,12 +21,12 @@ namespace Scripts.Shapes
             GenerateVerticesAndEdges();
         }
 
-        public Vertex[] SetVerticiesFromVectors(Vector3[] vectors)
+        public Vertex3D[] SetVerticiesFromVectors(Vector3[] vectors)
         {
-            Vertices = new Vertex[vectors.Length];
+            Vertices = new Vertex3D[vectors.Length];
             for (int i = 0; i < vectors.Length; i++)
             {
-                Vertices[i] = new Vertex(this, i, vectors[i]);
+                Vertices[i] = new Vertex3D(this, i, vectors[i]);
             }
             return Vertices;
         }
