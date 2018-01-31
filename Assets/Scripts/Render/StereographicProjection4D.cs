@@ -31,6 +31,12 @@ namespace Scripts.Render
             GenerateProjection();
         }
 
+        // Run every frame
+        public void Update()
+        {
+            UpdateProjection();
+        }
+
         private void GenerateProjection()
         {
             DestroyImmediate(projectionObj);
@@ -45,7 +51,7 @@ namespace Scripts.Render
                     var vertexPositions = new Vector3[Polytope.Vertices.Length];
                     for (int i = 0; i < vertexPositions.Length; i++)
                     {
-                        vertexPositions[i] = Project(Polytope.Vertices[i].LocalPosition);
+                        vertexPositions[i] = Project(Polytope.Vertices[i].GlobalPosition);
                     }
                     return vertexPositions;
                 },
@@ -66,6 +72,15 @@ namespace Scripts.Render
             
             if (LogVertices) { projectionObj.AddComponent<LogVertices3D>(); }
             if (LogEdges) { projectionObj.AddComponent<LogEdges3D>(); }
+        }
+
+        public void UpdateProjection()
+        {
+            for (int i = 0; i < projectionPolyhedron.Vertices.Length; i++)
+            {
+                Vector3 result = Project(Polytope.Vertices[i].GlobalPosition);
+                projectionPolyhedron.Vertices[i].LocalPosition = result;
+            }
         }
 
         public static Vector3 Project(Vector4 source)
