@@ -37,6 +37,9 @@ namespace Scripts.Geometry4D
             RotateFrom2DPlane(ref x, ref y, XY);
             RotateFrom2DPlane(ref x, ref z, XZ);
             RotateFrom2DPlane(ref z, ref y, YZ);
+            RotateFrom2DPlane(ref x, ref w, XW);
+            RotateFrom2DPlane(ref w, ref y, YW);
+            RotateFrom2DPlane(ref z, ref w, ZW);
 
             return new Vector4(x, y, z, w);
         }
