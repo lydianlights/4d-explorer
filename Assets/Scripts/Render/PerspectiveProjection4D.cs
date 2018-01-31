@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Geometry3D;
 using Scripts.Geometry3D.Shapes;
+using Scripts.Geometry4D;
+using Scripts.Geometry4D.Shapes;
 using Scripts.Debugging;
 
 namespace Scripts.Render
 {
-    [RequireComponent(typeof(Polyhedron))]
-    public class StereographicProjection3D : MonoBehaviour
+    // TODO: Color edges by w-axis "depth"
+    [RequireComponent(typeof(Polytope4D))]
+    public class PerspectiveProjection4D : MonoBehaviour
     {
         // Set in Unity
+        public float ProjectionHeight = 1.5f;
         public bool LogVertices = false;
         public bool LogEdges = false;
 
-        public Polyhedron Polyhedron { get; private set; }
+        public Polytope4D Polytope { get; private set; }
 
         private GeneratedPolyhedron projectionPolyhedron;
         private GameObject projectionObj;
@@ -22,7 +26,7 @@ namespace Scripts.Render
         // Run on script load
         public void Awake()
         {
-            Polyhedron = GetComponent<Polyhedron>();
+            Polytope = GetComponent<Polytope4D>();
         }
 
         // Run on object load
@@ -31,10 +35,10 @@ namespace Scripts.Render
             GenerateProjection();
         }
 
-        // Run each frame
+        // Run every frame
         public void Update()
         {
-            UpdateProjectionPolyhedron();
+            UpdateProjection();
         }
 
         private void GenerateProjection()
@@ -42,25 +46,26 @@ namespace Scripts.Render
             DestroyImmediate(projectionObj);
             projectionObj = new GameObject("Stereographic Projection");
             projectionObj.transform.SetParent(gameObject.transform);
-            
+
+            // TODO: Use vertex global position that will be defined by the polytope's Transform4D
             projectionPolyhedron = Polyhedron.GenerateFor(
                 projectionObj,
                 (self) =>
                 {
-                    var vertexPositions = new Vector3[Polyhedron.Vertices.Length];
+                    var vertexPositions = new Vector3[Polytope.Vertices.Length];
                     for (int i = 0; i < vertexPositions.Length; i++)
                     {
-                        vertexPositions[i] = Project(Polyhedron.Vertices[i].GlobalPosition);
+                        vertexPositions[i] = Project(Polytope.Vertices[i].GlobalPosition);
                     }
                     return vertexPositions;
                 },
                 (self) =>
                 {
-                    var edges = new Edge3D[Polyhedron.Edges.Length];
+                    var edges = new Edge3D[Polytope.Edges.Length];
                     for (int i = 0; i < edges.Length; i++)
                     {
-                        int indexA = Polyhedron.Edges[i].Endpoints[0].Index;
-                        int indexB = Polyhedron.Edges[i].Endpoints[1].Index;
+                        int indexA = Polytope.Edges[i].Endpoints[0].Index;
+                        int indexB = Polytope.Edges[i].Endpoints[1].Index;
                         edges[i] = new Edge3D(self.Vertices[indexA], self.Vertices[indexB]);
                     }
                     return edges;
@@ -68,23 +73,23 @@ namespace Scripts.Render
             );
 
             projectionObj.AddComponent<RenderWireframe>();
-
+            
             if (LogVertices) { projectionObj.AddComponent<LogVertices3D>(); }
             if (LogEdges) { projectionObj.AddComponent<LogEdges3D>(); }
         }
 
-        private void UpdateProjectionPolyhedron()
+        public void UpdateProjection()
         {
             for (int i = 0; i < projectionPolyhedron.Vertices.Length; i++)
             {
-                Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
+                Vector3 result = Project(Polytope.Vertices[i].GlobalPosition);
                 projectionPolyhedron.Vertices[i].LocalPosition = result;
             }
         }
 
-        public static Vector3 Project(Vector3 source)
+        public static Vector3 Project(Vector4 source)
         {
-            return new Vector3(source.x, 0, source.z);
+            return new Vector3(source.x, source.y, source.z);
         }
     }
 }

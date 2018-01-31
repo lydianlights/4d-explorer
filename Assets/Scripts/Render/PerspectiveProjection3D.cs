@@ -29,7 +29,7 @@ namespace Scripts.Render
         // Run on object load
         public void Start()
         {
-            GenerateProjectionPolyhedron();
+            GenerateProjection();
         }
 
         // Run each frame
@@ -38,7 +38,7 @@ namespace Scripts.Render
             UpdateProjectionPolyhedron();
         }
 
-        private void GenerateProjectionPolyhedron()
+        private void GenerateProjection()
         {
             DestroyImmediate(projectionObj);
             projectionObj = new GameObject("Perspective Projection");
