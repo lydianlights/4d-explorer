@@ -10,6 +10,10 @@ namespace Scripts.Render
     [RequireComponent(typeof(Polytope4D))]
     public class StereographicProjection4D : MonoBehaviour
     {
+        // Set in Unity
+        public bool LogVertices = false;
+        public bool LogEdges = false;
+
         public Polytope4D Polytope { get; private set; }
 
         private GeneratedPolyhedron projectionPolyhedron;
@@ -59,8 +63,9 @@ namespace Scripts.Render
             );
 
             projectionObj.AddComponent<RenderWireframe>();
-            projectionObj.AddComponent<LogVertices3D>();
-            projectionObj.AddComponent<LogEdges3D>();
+            
+            if (LogVertices) { projectionObj.AddComponent<LogVertices3D>(); }
+            if (LogEdges) { projectionObj.AddComponent<LogEdges3D>(); }
         }
 
         public static Vector3 Project(Vector4 source)

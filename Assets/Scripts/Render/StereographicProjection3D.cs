@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Shapes3D;
+using Scripts.Debugging;
 
 namespace Scripts.Render
 {
     [RequireComponent(typeof(Polyhedron))]
     public class StereographicProjection3D : MonoBehaviour
     {
+        // Set in Unity
+        public bool LogVertices = false;
+        public bool LogEdges = false;
+
         public Polyhedron Polyhedron { get; private set; }
 
         private GeneratedPolyhedron projectionPolyhedron;
@@ -62,6 +67,9 @@ namespace Scripts.Render
             );
 
             projectionObj.AddComponent<RenderWireframe>();
+
+            if (LogVertices) { projectionObj.AddComponent<LogVertices3D>(); }
+            if (LogEdges) { projectionObj.AddComponent<LogEdges3D>(); }
         }
 
         private void UpdateProjectionPolyhedron()
