@@ -24,7 +24,8 @@ namespace Scripts.Debugging
         {
             if (Time.time - lastLogTime > secondsPerLog || lastLogTime == null)
             {
-                string message = "--- Vertices ---\n\n";
+                string message = "--- Vertices ---\n";
+                message += "Obj: " + gameObject.name + "\n\n";
 
                 message += "Local:\n";
                 for (int i = 0; i < Polytope.Vertices.Length; i++)

@@ -24,7 +24,8 @@ namespace Scripts.Debugging
         {
             if (Time.time - lastLogTime > secondsPerLog || lastLogTime == null)
             {
-                string message = "--- Edges ---\n\n";
+                string message = "--- Edges ---\n";
+                message += "Obj: " + gameObject.name + "\n\n";
 
                 message += "Local:\n";
                 for (int i = 0; i < Polyhedron.Edges.Length; i++)
