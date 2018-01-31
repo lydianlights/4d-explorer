@@ -36,9 +36,9 @@ namespace Scripts.Geometry4D.Shapes
         {
             var edges = new Edge4D[32];
 
-            // Edge 0 - 15
             for (int i = 0; i < 4; i++)
             {
+                // Edge 0 - 15
                 edges[4 * i + 0] = new Edge4D(Vertices[0 + 4 * i], Vertices[1 + 4 * i]);
                 edges[4 * i + 1] = new Edge4D(Vertices[1 + 4 * i], Vertices[3 + 4 * i]);
                 edges[4 * i + 2] = new Edge4D(Vertices[3 + 4 * i], Vertices[2 + 4 * i]);
