@@ -13,6 +13,7 @@ class Transform4DInspector : Editor
         var t = (Transform4D)target;
         float inputWidth = 50f;
         float labelWidth = 15f;
+        float labelWidth2 = 25f;
 
         EditorGUILayout.LabelField("Position");
         EditorGUILayout.BeginHorizontal();
@@ -27,6 +28,30 @@ class Transform4DInspector : Editor
 
             EditorGUILayout.LabelField("W", GUILayout.Width(labelWidth));
             t.Position.w = EditorGUILayout.FloatField(t.Position.w, GUILayout.Width(inputWidth));
+        EditorGUILayout.EndHorizontal();
+
+
+        EditorGUILayout.LabelField("Rotation");
+        EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("XY", GUILayout.Width(labelWidth2));
+            t.Rotation.XY = EditorGUILayout.FloatField(t.Rotation.XY, GUILayout.Width(inputWidth));
+
+            EditorGUILayout.LabelField("XZ", GUILayout.Width(labelWidth2));
+            t.Rotation.XZ = EditorGUILayout.FloatField(t.Rotation.XZ, GUILayout.Width(inputWidth));
+
+            EditorGUILayout.LabelField("YZ", GUILayout.Width(labelWidth2));
+            t.Rotation.YZ = EditorGUILayout.FloatField(t.Rotation.YZ, GUILayout.Width(inputWidth));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("XW", GUILayout.Width(labelWidth2));
+            t.Rotation.XW = EditorGUILayout.FloatField(t.Rotation.XW, GUILayout.Width(inputWidth));
+
+            EditorGUILayout.LabelField("YW", GUILayout.Width(labelWidth2));
+            t.Rotation.YW = EditorGUILayout.FloatField(t.Rotation.YW, GUILayout.Width(inputWidth));
+
+            EditorGUILayout.LabelField("ZW", GUILayout.Width(labelWidth2));
+            t.Rotation.ZW = EditorGUILayout.FloatField(t.Rotation.ZW, GUILayout.Width(inputWidth));
         EditorGUILayout.EndHorizontal();
 
 
