@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Shapes3D;
 using Scripts.Shapes4D;
+using Scripts.Debugging;
 
 namespace Scripts.Render
 {
@@ -58,6 +59,8 @@ namespace Scripts.Render
             );
 
             projectionObj.AddComponent<RenderWireframe>();
+            projectionObj.AddComponent<LogVertices3D>();
+            projectionObj.AddComponent<LogEdges3D>();
         }
 
         public static Vector3 Project(Vector4 source)
