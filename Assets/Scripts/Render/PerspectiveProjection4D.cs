@@ -86,9 +86,19 @@ namespace Scripts.Render
             }
         }
 
-        public static Vector3 Project(Vector4 source)
+        private Vector3 Project(Vector4 source)
         {
-            return new Vector3(source.x, source.y, source.z);
+            Vector4 origin = new Vector4(
+                   Polytope.Transform.Position.x,
+                   Polytope.Transform.Position.y,
+                   Polytope.Transform.Position.z,
+                   Polytope.Transform.Position.w + ProjectionHeight
+               );
+            float x = source.x - source.w * ((origin.x - source.x) / (origin.w - source.w));
+            float y = source.y - source.w * ((origin.y - source.y) / (origin.w - source.w));
+            float z = source.z - source.w * ((origin.z - source.z) / (origin.w - source.w));
+
+            return new Vector3(x, y, z);
         }
     }
 }
