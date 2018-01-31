@@ -45,8 +45,7 @@ namespace Scripts.Render
             DestroyImmediate(projectionObj);
             projectionObj = new GameObject("Stereographic Projection");
             projectionObj.transform.SetParent(gameObject.transform);
-
-            // TODO: Use vertex global position that will be defined by the polytope's Transform4D
+            
             projectionPolyhedron = Polyhedron.GenerateFor(
                 projectionObj,
                 (self) =>
