@@ -6,6 +6,6 @@ namespace Scripts.Shapes4D
 {
     public class Transform4D : MonoBehaviour
     {
-        public Vector4 Position { get; set; }
+        public Vector4 Position;
     }
 }
