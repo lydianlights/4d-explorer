@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Scripts.Geometry4D
 {
     // TODO: Do some fancy math because 6 planes of rotation is redundant... but easy to think about
+    [Serializable]
     public class Orientation4D
     {
         public float XY = 0;
@@ -25,8 +26,7 @@ namespace Scripts.Geometry4D
             YW = yw;
             ZW = zw;
         }
-
-        // TODO: Test only rotates about xw plane
+        
         public Vector4 TransformVector(Vector4 source)
         {
             var x = source.x;
