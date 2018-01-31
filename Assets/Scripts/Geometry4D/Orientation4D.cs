@@ -29,13 +29,26 @@ namespace Scripts.Geometry4D
         // TODO: Test only rotates about xw plane
         public Vector4 TransformVector(Vector4 source)
         {
-            var sinA = Mathf.Sin(Mathf.Deg2Rad * XW);
-            var cosA = Mathf.Cos(Mathf.Deg2Rad * XW);
-            var x = source.x * cosA - source.w * sinA;
+            var x = source.x;
             var y = source.y;
             var z = source.z;
-            var w = source.w * cosA + source.y * sinA;
+            var w = source.w;
+
+            RotateFrom2DPlane(ref x, ref y, XY);
+            RotateFrom2DPlane(ref x, ref z, XZ);
+            RotateFrom2DPlane(ref z, ref y, YZ);
+
             return new Vector4(x, y, z, w);
+        }
+
+        private void RotateFrom2DPlane(ref float x, ref float y, float angle)
+        {
+            var sinA = Mathf.Sin(Mathf.Deg2Rad * angle);
+            var cosA = Mathf.Cos(Mathf.Deg2Rad * angle);
+            var newX = x * cosA - y * sinA;
+            var newY = y * cosA + x * sinA;
+            x = newX;
+            y = newY;
         }
     }
 }
