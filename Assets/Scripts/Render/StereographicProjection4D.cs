@@ -9,6 +9,7 @@ using Scripts.Debugging;
 
 namespace Scripts.Render
 {
+    // TODO: Color edges by w-axis "depth"
     [RequireComponent(typeof(Polytope4D))]
     public class StereographicProjection4D : MonoBehaviour
     {
