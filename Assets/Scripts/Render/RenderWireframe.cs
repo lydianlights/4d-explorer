@@ -82,7 +82,7 @@ namespace Scripts.Render
                 
                 edgeConnections[j].transform.localPosition = vtxA.LocalPosition - offset / 2;
                 edgeConnections[j].transform.localScale = new Vector3(FrameThickness, offset.magnitude / 2, FrameThickness);
-                edgeConnections[j].transform.localRotation = Quaternion.LookRotation(offset);
+                edgeConnections[j].transform.localRotation = (offset == Vector3.zero) ? Quaternion.identity : Quaternion.LookRotation(offset);
                 edgeConnections[j].transform.Rotate(90, 0, 0);
             }
         }
