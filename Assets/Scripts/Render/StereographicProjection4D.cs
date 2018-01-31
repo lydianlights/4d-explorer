@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Shapes3D;
+using Scripts.Shapes4D;
 
 namespace Scripts.Render
 {
-    [RequireComponent(typeof(Polyhedron))]
-    public class StereographicProjection3D : MonoBehaviour
+    [RequireComponent(typeof(Polytope4D))]
+    public class StereographicProjection4D : MonoBehaviour
     {
-        public Polyhedron Polyhedron { get; private set; }
+        public Polytope4D Polytope { get; private set; }
 
         private GeneratedPolyhedron projectionPolyhedron;
         private GameObject projectionObj;
@@ -16,45 +17,40 @@ namespace Scripts.Render
         // Run on script load
         public void Awake()
         {
-            Polyhedron = GetComponent<Polyhedron>();
+            Polytope = GetComponent<Polytope4D>();
         }
 
         // Run on object load
         public void Start()
         {
-            GenerateProjectionPolyhedron();
+            GenerateProjection();
         }
 
-        // Run each frame
-        public void Update()
-        {
-            UpdateProjectionPolyhedron();
-        }
-
-        private void GenerateProjectionPolyhedron()
+        private void GenerateProjection()
         {
             DestroyImmediate(projectionObj);
             projectionObj = new GameObject("Stereographic Projection");
             projectionObj.transform.SetParent(gameObject.transform);
-            
+
+            // TODO: Use vertex global position that will be defined by the polytope's Transform4D
             projectionPolyhedron = Polyhedron.GenerateFor(
                 projectionObj,
                 (self) =>
                 {
-                    var vertexPositions = new Vector3[Polyhedron.Vertices.Length];
+                    var vertexPositions = new Vector3[Polytope.Vertices.Length];
                     for (int i = 0; i < vertexPositions.Length; i++)
                     {
-                        vertexPositions[i] = Project(Polyhedron.Vertices[i].GlobalPosition);
+                        vertexPositions[i] = Project(Polytope.Vertices[i].LocalPosition);
                     }
                     return vertexPositions;
                 },
                 (self) =>
                 {
-                    var edges = new Edge3D[Polyhedron.Edges.Length];
+                    var edges = new Edge3D[Polytope.Edges.Length];
                     for (int i = 0; i < edges.Length; i++)
                     {
-                        int indexA = Polyhedron.Edges[i].Endpoints[0].Index;
-                        int indexB = Polyhedron.Edges[i].Endpoints[1].Index;
+                        int indexA = Polytope.Edges[i].Endpoints[0].Index;
+                        int indexB = Polytope.Edges[i].Endpoints[1].Index;
                         edges[i] = new Edge3D(self.Vertices[indexA], self.Vertices[indexB]);
                     }
                     return edges;
@@ -64,18 +60,9 @@ namespace Scripts.Render
             projectionObj.AddComponent<RenderWireframe>();
         }
 
-        private void UpdateProjectionPolyhedron()
+        public static Vector3 Project(Vector4 source)
         {
-            for (int i = 0; i < projectionPolyhedron.Vertices.Length; i++)
-            {
-                Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
-                projectionPolyhedron.Vertices[i].LocalPosition = result;
-            }
-        }
-
-        public static Vector3 Project(Vector3 source)
-        {
-            return new Vector3(source.x, 0, source.z);
+            return new Vector3(source.x, source.y, source.z);
         }
     }
 }

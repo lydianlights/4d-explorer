@@ -39,10 +39,10 @@ namespace Scripts.Shapes4D
             // Edge 0 - 15
             for (int i = 0; i < 4; i++)
             {
-                edges[i + 0] = new Edge4D(Vertices[0 + 4 * i], Vertices[1 + 4 * i]);
-                edges[i + 1] = new Edge4D(Vertices[1 + 4 * i], Vertices[3 + 4 * i]);
-                edges[i + 2] = new Edge4D(Vertices[3 + 4 * i], Vertices[2 + 4 * i]);
-                edges[i + 3] = new Edge4D(Vertices[2 + 4 * i], Vertices[0 + 4 * i]);
+                edges[4 * i + 0] = new Edge4D(Vertices[0 + 4 * i], Vertices[1 + 4 * i]);
+                edges[4 * i + 1] = new Edge4D(Vertices[1 + 4 * i], Vertices[3 + 4 * i]);
+                edges[4 * i + 2] = new Edge4D(Vertices[3 + 4 * i], Vertices[2 + 4 * i]);
+                edges[4 * i + 3] = new Edge4D(Vertices[2 + 4 * i], Vertices[0 + 4 * i]);
             }
 
             // Edge 16 - 23
