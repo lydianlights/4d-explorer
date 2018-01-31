@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Helpers;
 
-namespace Scripts.Shapes3D
+namespace Scripts.Geometry3D.Shapes
 {
     class Tetrahedron : Polyhedron
     {

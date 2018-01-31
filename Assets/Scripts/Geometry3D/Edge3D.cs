@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Shapes3D
+namespace Scripts.Geometry3D
 {
     public class Edge3D
     {

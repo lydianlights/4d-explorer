@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Geometry3D.Shapes;
 
-namespace Scripts.Shapes3D
+namespace Scripts.Geometry3D
 {
     public class Vertex3D
     {

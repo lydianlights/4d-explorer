@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes4D;
 
-namespace Scripts.Shapes4D
+namespace Scripts.Geometry4D.Shapes
 {
     [RequireComponent(typeof(Transform4D))]
     public abstract class Polytope4D : MonoBehaviour

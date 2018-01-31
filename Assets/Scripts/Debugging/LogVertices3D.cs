@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes3D;
+using Scripts.Geometry3D;
+using Scripts.Geometry3D.Shapes;
 
 namespace Scripts.Debugging
 {

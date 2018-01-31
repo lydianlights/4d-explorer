@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Shapes4D
+namespace Scripts.Geometry4D
 {
     public class Transform4D : MonoBehaviour
     {

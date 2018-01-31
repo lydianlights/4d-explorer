@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Shapes3D;
-using Scripts.Shapes4D;
+using Scripts.Geometry3D;
+using Scripts.Geometry3D.Shapes;
+using Scripts.Geometry4D;
+using Scripts.Geometry4D.Shapes;
 using Scripts.Debugging;
 
 namespace Scripts.Render

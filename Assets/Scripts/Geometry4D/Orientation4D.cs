@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Shapes4D
+namespace Scripts.Geometry4D
 {
     // TODO: Do some fancy math because 6 planes of rotation is redundant... but easy to think about
     public class Orientation4D

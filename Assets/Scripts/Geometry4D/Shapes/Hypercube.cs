@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Shapes4D
+namespace Scripts.Geometry4D.Shapes
 {
     public class Hypercube : Polytope4D
     {
