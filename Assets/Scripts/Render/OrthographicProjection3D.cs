@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Geometry3D;
 using Scripts.Geometry3D.Shapes;
-using Scripts.Geometry4D;
-using Scripts.Geometry4D.Shapes;
 using Scripts.Debugging;
 
 namespace Scripts.Render
 {
-    // TODO: Color edges by w-axis "depth"
-    [RequireComponent(typeof(Polytope4D))]
-    public class StereographicProjection4D : MonoBehaviour
+    [RequireComponent(typeof(Polyhedron))]
+    public class OrthographicProjection3D : MonoBehaviour
     {
         // Set in Unity
         public bool LogVertices = false;
         public bool LogEdges = false;
 
-        public Polytope4D Polytope { get; private set; }
+        public Polyhedron Polyhedron { get; private set; }
 
         private GeneratedPolyhedron projectionPolyhedron;
         private GameObject projectionObj;
@@ -25,7 +22,7 @@ namespace Scripts.Render
         // Run on script load
         public void Awake()
         {
-            Polytope = GetComponent<Polytope4D>();
+            Polyhedron = GetComponent<Polyhedron>();
         }
 
         // Run on object load
@@ -34,36 +31,36 @@ namespace Scripts.Render
             GenerateProjection();
         }
 
-        // Run every frame
+        // Run each frame
         public void Update()
         {
-            UpdateProjection();
+            UpdateProjectionPolyhedron();
         }
 
         private void GenerateProjection()
         {
             DestroyImmediate(projectionObj);
-            projectionObj = new GameObject("Stereographic Projection");
+            projectionObj = new GameObject("Orthographic Projection");
             projectionObj.transform.SetParent(gameObject.transform);
             
             projectionPolyhedron = Polyhedron.GenerateFor(
                 projectionObj,
                 (self) =>
                 {
-                    var vertexPositions = new Vector3[Polytope.Vertices.Length];
+                    var vertexPositions = new Vector3[Polyhedron.Vertices.Length];
                     for (int i = 0; i < vertexPositions.Length; i++)
                     {
-                        vertexPositions[i] = Project(Polytope.Vertices[i].GlobalPosition);
+                        vertexPositions[i] = Project(Polyhedron.Vertices[i].GlobalPosition);
                     }
                     return vertexPositions;
                 },
                 (self) =>
                 {
-                    var edges = new Edge3D[Polytope.Edges.Length];
+                    var edges = new Edge3D[Polyhedron.Edges.Length];
                     for (int i = 0; i < edges.Length; i++)
                     {
-                        int indexA = Polytope.Edges[i].Endpoints[0].Index;
-                        int indexB = Polytope.Edges[i].Endpoints[1].Index;
+                        int indexA = Polyhedron.Edges[i].Endpoints[0].Index;
+                        int indexB = Polyhedron.Edges[i].Endpoints[1].Index;
                         edges[i] = new Edge3D(self.Vertices[indexA], self.Vertices[indexB]);
                     }
                     return edges;
@@ -71,23 +68,23 @@ namespace Scripts.Render
             );
 
             projectionObj.AddComponent<RenderWireframe>();
-            
+
             if (LogVertices) { projectionObj.AddComponent<LogVertices3D>(); }
             if (LogEdges) { projectionObj.AddComponent<LogEdges3D>(); }
         }
 
-        public void UpdateProjection()
+        private void UpdateProjectionPolyhedron()
         {
             for (int i = 0; i < projectionPolyhedron.Vertices.Length; i++)
             {
-                Vector3 result = Project(Polytope.Vertices[i].GlobalPosition);
+                Vector3 result = Project(Polyhedron.Vertices[i].GlobalPosition);
                 projectionPolyhedron.Vertices[i].LocalPosition = result;
             }
         }
 
-        public static Vector3 Project(Vector4 source)
+        public static Vector3 Project(Vector3 source)
         {
-            return new Vector3(source.x, source.y, source.z);
+            return new Vector3(source.x, 0, source.z);
         }
     }
 }
