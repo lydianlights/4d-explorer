@@ -25,5 +25,17 @@ namespace Scripts.Geometry4D
             YW = yw;
             ZW = zw;
         }
+
+        // TODO: Test only rotates about xw plane
+        public Vector4 TransformVector(Vector4 source)
+        {
+            var sinA = Mathf.Sin(Mathf.Deg2Rad * XW);
+            var cosA = Mathf.Cos(Mathf.Deg2Rad * XW);
+            var x = source.x * cosA - source.w * sinA;
+            var y = source.y;
+            var z = source.z;
+            var w = source.w * cosA + source.y * sinA;
+            return new Vector4(x, y, z, w);
+        }
     }
 }

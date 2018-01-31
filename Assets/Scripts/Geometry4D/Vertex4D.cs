@@ -13,7 +13,7 @@ namespace Scripts.Geometry4D
         {
             get
             {
-                Vector4 result = LocalPosition;
+                Vector4 result = Parent.Transform.Rotation.TransformVector(LocalPosition);
                 result.Scale(Parent.Transform.Scale);
                 result = result + Parent.Transform.Position;
                 return result;
