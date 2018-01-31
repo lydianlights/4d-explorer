@@ -7,8 +7,17 @@ namespace Scripts.Shapes4D
     public class Vertex4D
     {
         public Vector4 LocalPosition { get; set; }
-
-        // TODO: Global Position
+        // TODO: Include rotations
+        public Vector4 GlobalPosition
+        {
+            get
+            {
+                Vector4 result = LocalPosition;
+                result.Scale(Parent.Transform.Scale);
+                result = result + Parent.Transform.Position;
+                return result;
+            }
+        }
         public int Index { get; set; }
         public Polytope4D Parent { get; private set; }
 

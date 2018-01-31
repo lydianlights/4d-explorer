@@ -32,6 +32,13 @@ namespace Scripts.Debugging
                     message += String.Format("V{0} - X:{1} Y:{2} Z:{3} W:{4}\n", i, v.x, v.y, v.z, v.w);
                 }
 
+                message += "\nGlobal:\n";
+                for (int i = 0; i < Polytope.Vertices.Length; i++)
+                {
+                    var v = Polytope.Vertices[i].GlobalPosition;
+                    message += String.Format("V{0} - X:{1} Y:{2} Z:{3} W:{4}\n", i, v.x, v.y, v.z, v.w);
+                }
+
                 Debug.Log(message);
                 lastLogTime = Time.time;
             }

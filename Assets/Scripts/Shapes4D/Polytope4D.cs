@@ -21,6 +21,7 @@ namespace Scripts.Shapes4D
         // Run on script load
         public void Awake()
         {
+            Transform = GetComponent<Transform4D>();
             Vector4[] vertexPositions = DefineVertexPositions();
             SetVerticiesFromVectors(vertexPositions);
             Edges = DefineEdges();
