@@ -43,13 +43,14 @@ namespace Scripts.Geometry4D.Shapes
                 edges[4 * i + 1] = new Edge4D(Vertices[1 + 4 * i], Vertices[3 + 4 * i]);
                 edges[4 * i + 2] = new Edge4D(Vertices[3 + 4 * i], Vertices[2 + 4 * i]);
                 edges[4 * i + 3] = new Edge4D(Vertices[2 + 4 * i], Vertices[0 + 4 * i]);
+
+                // Edge 16 - 23
+                edges[16 + i] = new Edge4D(Vertices[i + 0], Vertices[i + 4]);
+                edges[20 + i] = new Edge4D(Vertices[i + 8 + 0], Vertices[i + 8 + 4]);
             }
 
             for (int i = 0; i < 8; i++)
             {
-                // Edge 16 - 23
-                edges[16 + i] = new Edge4D(Vertices[i + 0], Vertices[i + 4]);
-
                 // Edge 24 - 31
                 edges[24 + i] = new Edge4D(Vertices[i], Vertices[i + 8]);
             }

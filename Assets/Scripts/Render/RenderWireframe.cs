@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Geometry3D;
@@ -49,6 +49,7 @@ namespace Scripts.Render
             for (int i = 0; i < vertexSpheres.Length; i++)
             {
                 vertexSpheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                vertexSpheres[i].name = "Vtx " + i;
                 vertexSpheres[i].transform.SetParent(wireframe.transform);
             }
 
@@ -57,6 +58,7 @@ namespace Scripts.Render
             for (int j = 0; j < edgeConnections.Length; j++)
             {
                 edgeConnections[j] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                edgeConnections[j].name = String.Format("Edge [{0} <=> {1}]", Polyhedron.Edges[j].Endpoints[0].Index, Polyhedron.Edges[j].Endpoints[1].Index);
                 edgeConnections[j].transform.SetParent(wireframe.transform);
             }
 
