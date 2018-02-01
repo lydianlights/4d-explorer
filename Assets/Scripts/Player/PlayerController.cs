@@ -43,6 +43,7 @@ namespace Scripts.Player
                 0,
                 Input.GetAxis("Forward")
             );
+            moveDirection.Normalize();
         }
 
         // Run every physics frame
