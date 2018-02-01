@@ -9,9 +9,10 @@ namespace Scripts.Player
     {
         // Set in Unity
         public float Sensitivity = 1f;
-        public float pitch = 0f;
-        public float yaw = 0f;
-        public float roll = 0f;
+
+        public float Pitch = 0f;
+        public float Yaw = 0f;
+        public float Roll = 0f;
 
         private Camera camera;
 
@@ -22,11 +23,11 @@ namespace Scripts.Player
 
         public void Update()
         {
-            yaw += Input.GetAxis("Mouse X") * Sensitivity;
-            pitch -= Input.GetAxis("Mouse Y") * Sensitivity;
-            pitch = Mathf.Clamp(pitch, -80, 80);
+            Yaw += Input.GetAxis("Mouse X") * Sensitivity;
+            Pitch -= Input.GetAxis("Mouse Y") * Sensitivity;
+            Pitch = Mathf.Clamp(Pitch, -80, 80);
 
-            camera.transform.rotation = Quaternion.Euler(pitch, yaw, roll);
+            camera.transform.rotation = Quaternion.Euler(Pitch, Yaw, Roll);
         }
     }
 }

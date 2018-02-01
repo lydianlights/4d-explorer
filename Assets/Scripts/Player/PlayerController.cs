@@ -2,43 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+namespace Scripts.Player
 {
-    // Set in Unity
-    public float Gravity = 20f;
-    
-    [NonSerialized]
-    public Vector3 Velocity = new Vector3(0, 0, 0);
-
-    private CharacterController control;
-
-    // Run on script load
-    public void Awake()
+    [RequireComponent(typeof(CharacterController))]
+    public class PlayerController : MonoBehaviour
     {
-        control = GetComponent<CharacterController>();
-    }
+        // Set in Unity
+        [SerializeField]
+        private PlayerCamera cameraPrefab;
+        public float Gravity = 20f;
+        public float MoveSpeed = 10f;
 
-    // Run on object load
-    public void Start()
-    {
-		
-	}
+        [NonSerialized]
+        public Vector3 Velocity = new Vector3(0, 0, 0);
+        [NonSerialized]
+        public PlayerCamera Camera;
 
-    // Run every frame
-    public void Update()
-    {
-        
-    }
+        private CharacterController control;
+        private Vector3 moveDirection = new Vector3(0, 0, 0);
 
-    // Run every physics frame
-    public void FixedUpdate()
-    {
-        Velocity.y -= Time.deltaTime * Gravity;
-        if (control.isGrounded)
+        // Run on script load
+        public void Awake()
         {
-            Velocity.y = 0;
+            control = GetComponent<CharacterController>();
+            Camera = Instantiate(cameraPrefab, gameObject.transform);
         }
-        control.Move(Time.deltaTime * Velocity);
+
+        // Run on object load
+        public void Start()
+        {
+
+        }
+
+        // Run every frame
+        public void Update()
+        {
+            var facing = Quaternion.Euler(0, Camera.Yaw, 0);
+            moveDirection = facing * new Vector3(
+                Input.GetAxis("Strafe"),
+                0,
+                Input.GetAxis("Forward")
+            );
+        }
+
+        // Run every physics frame
+        public void FixedUpdate()
+        {
+            Velocity.x = moveDirection.x * MoveSpeed;
+            Velocity.z = moveDirection.z * MoveSpeed;
+            Velocity.y -= Time.deltaTime * Gravity;
+            if (control.isGrounded)
+            {
+                Velocity.y = 0;
+            }
+
+            control.Move(Time.deltaTime * Velocity);
+        }
     }
 }
