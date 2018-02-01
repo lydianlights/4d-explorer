@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Helpers;
 
 namespace Scripts.Geometry4D.Shapes
 {
@@ -10,11 +11,11 @@ namespace Scripts.Geometry4D.Shapes
         {
             var vertexPositions = new Vector4[]
             {
-                new Vector4(1f/Mathf.Sqrt(10f), 1f/Mathf.Sqrt(6f), 1f/Mathf.Sqrt(3f), 1f),
-                new Vector4(1f/Mathf.Sqrt(10f), 1f/Mathf.Sqrt(6f), 1f/Mathf.Sqrt(3f), -1f),
-                new Vector4(1f/Mathf.Sqrt(10f), 1f/Mathf.Sqrt(6f), -2f/Mathf.Sqrt(3f), 0),
-                new Vector4(1f/Mathf.Sqrt(10f), -Mathf.Sqrt(1.5f), 0, 0),
-                new Vector4(-2f * Mathf.Sqrt(0.4f), 0, 0, 0)
+                new Vector4(1f, 1f, 1f, -MathHelpers.Sqrt5Inv),
+                new Vector4(1f, -1f, -1f, -MathHelpers.Sqrt5Inv),
+                new Vector4(-1f, 1f, -1f, -MathHelpers.Sqrt5Inv),
+                new Vector4(-1f, -1f, 1f, -MathHelpers.Sqrt5Inv),
+                new Vector4(0f, 0f, 0f, MathHelpers.Sqrt5 - MathHelpers.Sqrt5Inv),
             };
             return vertexPositions;
         }
