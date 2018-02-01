@@ -8,7 +8,10 @@ namespace Scripts.Player
     public class PlayerCamera : MonoBehaviour
     {
         // Set in Unity
-        public float Sensitivity = 3f;
+        public float Sensitivity = 1f;
+        public float pitch = 0f;
+        public float yaw = 0f;
+        public float roll = 0f;
 
         private Camera camera;
 
@@ -19,12 +22,11 @@ namespace Scripts.Player
 
         public void Update()
         {
-            float yaw = camera.transform.localRotation.eulerAngles.y + Input.GetAxis("Mouse X") * Sensitivity;
-            float pitch = camera.transform.localRotation.eulerAngles.x - Input.GetAxis("Mouse Y") * Sensitivity;
-            //pitch = Mathf.Clamp(pitch, -80, 80);
-            float roll = camera.transform.localRotation.eulerAngles.z;
+            yaw += Input.GetAxis("Mouse X") * Sensitivity;
+            pitch -= Input.GetAxis("Mouse Y") * Sensitivity;
+            pitch = Mathf.Clamp(pitch, -80, 80);
 
-            camera.transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+            camera.transform.rotation = Quaternion.Euler(pitch, yaw, roll);
         }
     }
 }
