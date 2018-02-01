@@ -46,7 +46,10 @@ namespace Scripts.Render
             DestroyImmediate(projectionObj);
             projectionObj = new GameObject("Perspective Projection");
             projectionObj.transform.SetParent(gameObject.transform);
-            
+            projectionObj.transform.localPosition = Vector3.zero;
+            projectionObj.transform.localRotation = Quaternion.identity;
+            projectionObj.transform.localScale= Vector3.one;
+
             projectionPolyhedron = Polyhedron.GenerateFor(
                 projectionObj,
                 (self) =>
