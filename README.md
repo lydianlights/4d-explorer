@@ -6,7 +6,7 @@ _This project is currently under heavy development._
 
 ## Description
 
-This application is intended to be an immersive, interactive tool that allows users to explore the properties of 4-dimensional Euclidean space. They will learn about different types of projections and how a 4-D object can cast a "shadow" into our 3D world, have a chance to interact with 4-D solids and get an intuition for how they behave, and even have a chance to move through and explore 4D space themselves.
+This application is intended to be an immersive, interactive tool that allows users to explore the properties of 4-dimensional Euclidean space. They will learn about different types of projections and how a 4D object can cast a "shadow" into our 3D world, have a chance to interact with 4D solids and get an intuition for how they behave, and even have a chance to move through and explore 4D space themselves.
 
 ## Using The Source Code
 
