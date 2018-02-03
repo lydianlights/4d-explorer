@@ -5,7 +5,7 @@ using Scripts.Helpers;
 
 namespace Scripts.Geometry4D.Shapes
 {
-    public class FiveCell : Polytope4D
+    public class Poly5Cell : Polytope4D
     {
         protected override Vector4[] DefineVertexPositions()
         {
