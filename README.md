@@ -2,9 +2,7 @@ _This project is currently under heavy development._
 
 # 4D Explorer
 
-#### _A showcase of 4D geometry_
-
-#### _By Rane Fields_
+#### _A showcase of 4D geometry by Rane Fields_
 
 ## Description
 
