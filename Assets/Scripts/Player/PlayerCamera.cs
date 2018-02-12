@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Player
+namespace Explorer4D.Player
 {
     [RequireComponent(typeof(Camera))]
     public class PlayerCamera : MonoBehaviour

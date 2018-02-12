@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Scripts.Render;
+using Explorer4D.Geometry.Rendering;
 
 [CustomEditor(typeof(RenderWireframe))]
 class RenderWireframeInspector : Editor

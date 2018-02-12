@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Scripts.Geometry4D;
+using Explorer4D.Geometry;
 
 [CustomEditor(typeof(Transform4D))]
 class Transform4DInspector : Editor
