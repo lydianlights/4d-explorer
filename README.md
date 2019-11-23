@@ -1,5 +1,3 @@
-_This project is currently under heavy development._
-
 # 4D Explorer
 
 #### _A showcase of 4D geometry by Rane Fields_
